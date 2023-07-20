@@ -1,0 +1,25 @@
+import random
+
+# Функция для создания хокку по заданной теме
+def generate_haiku(topic):
+    # Пул фраз для каждой строки хокку
+    line1 = ["In the", "A", "The", "At", "On", "With", "From"]
+    line2 = ["morning", "moonlight", "cherry blossoms", "autumn leaves", "gentle rain", "falling snow"]
+    line3 = ["butterfly dances", "sparrow sings", "whispers softly", "river flows", "waves crash", "snowflakes drift"]
+
+    # Выбор случайной фразы для каждой строки хокку
+    haiku_line1 = random.choice(line1)
+    haiku_line2 = random.choice(line2)
+    haiku_line3 = random.choice(line3)
+
+    # Сборка хокку
+    haiku = f"{haiku_line1} {topic}\n{haiku_line2} {topic}\n{haiku_line3} {topic}"
+
+    return haiku
+
+# Пример использования
+if __name__ == "__main__":
+    topic = input("Введите тему хокку: ")
+    haiku = generate_haiku(topic)
+    print("\nВаше хокку:\n")
+    print(haiku)
