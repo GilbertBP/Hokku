@@ -1,0 +1,28 @@
+import openai
+
+# Встановлюємо API-ключ GPT-3
+openai.api_key = "ВАШ_КЛЮЧ_API_GPT3"
+
+def generate_essay(prompt):
+    response = openai.Completion.create(
+        engine="text-davinci-003",
+        prompt=prompt,
+        max_tokens=500,
+        stop=["\n"]
+    )
+    return response.choices[0].text.strip()
+
+def main():
+    print("Ласкаво просимо до бота для написання творів про українських класиків!")
+    while True:
+        topic = input("Введіть твір українського класика (наприклад, Тарас Шевченко): ")
+        prompt = f"Автор {topic} є видатним представником української літератури. Його твори справили значний вплив на розвиток національної культури. "
+        essay = generate_essay(prompt)
+        print("\nТвір:")
+        print(essay)
+        another = input("Бажаєте написати ще один твір? (так / ні): ")
+        if another.lower() != "так":
+            break
+
+if __name__ == "__main__":
+    main()
