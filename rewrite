@@ -1,0 +1,37 @@
+pip install transformers
+pip install torch
+import torch
+from transformers import GPT2Tokenizer, GPT2LMHeadModel
+
+def rewrite_text(text, num_rewrites=5):
+    tokenizer = GPT2Tokenizer.from_pretrained("gpt2")
+    model = GPT2LMHeadModel.from_pretrained("gpt2")
+
+    # Предварительная обработка текста
+    input_ids = tokenizer.encode(text, return_tensors="pt")
+
+    # Генерация рерайтов
+    rewrites = []
+    for _ in range(num_rewrites):
+        with torch.no_grad():
+            outputs = model.generate(
+                input_ids,
+                max_length=len(input_ids[0]) + 30,
+                num_return_sequences=1,
+                pad_token_id=tokenizer.eos_token_id,
+                temperature=0.7,
+            )
+        rewrite = tokenizer.decode(outputs[0], skip_special_tokens=True)
+        rewrites.append(rewrite)
+
+    return rewrites
+
+if __name__ == "__main__":
+    input_text = """
+    Все счастливые семьи похожи друг на друга, 
+    каждая несчастливая семья несчастлива по-своему.
+    """
+    
+    rewrites = rewrite_text(input_text, num_rewrites=3)
+    for idx, rewrite in enumerate(rewrites, 1):
+        print(f"Рерайт {idx}: {rewrite}")
