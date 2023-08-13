@@ -1,0 +1,26 @@
+class Applicant:
+    def __init__(self, name, experience, skills, education):
+        self.name = name
+        self.experience = experience
+        self.skills = skills
+        self.education = education
+
+    def generate_resume(self):
+        resume = f"Резюме\n\nИмя: {self.name}\n"
+        resume += f"Опыт работы: {self.experience}\n"
+        resume += f"Навыки: {', '.join(self.skills)}\n"
+        resume += f"Образование: {self.education}\n"
+        return resume
+
+# Пример данных кандидата
+applicant_data = {
+    "name": "Иван Иванов",
+    "experience": "3 года опыта в разработке программного обеспечения",
+    "skills": ["Python", "JavaScript", "SQL"],
+    "education": "Бакалавр информатики, Университет XYZ"
+}
+
+# Создание объекта кандидата и генерация резюме
+applicant = Applicant(**applicant_data)
+resume = applicant.generate_resume()
+print(resume)
