@@ -1,0 +1,38 @@
+import random
+import time
+from midiutil import MIDIFile
+
+def generate_melody(num_notes, tempo):
+    # Создаем объект MIDIFile
+    midi = MIDIFile(1)
+
+    # Устанавливаем параметры трека
+    track = 0
+    time = 0
+    midi.addTrackName(track, time, "Melody")
+    midi.addTempo(track, time, tempo)
+
+    # Определяем доступные ноты и длительности
+    notes = [60, 62, 64, 65, 67, 69, 71, 72]
+    durations = [0.25, 0.5, 1, 2]
+
+    # Генерируем случайную мелодию
+    for _ in range(num_notes):
+        pitch = random.choice(notes)
+        duration = random.choice(durations)
+        midi.addNote(track, 0, pitch, time, duration)
+        time += duration
+
+    return midi
+
+def save_melody(midi, filename):
+    with open(filename, "wb") as output_file:
+        midi.writeFile(output_file)
+
+if __name__ == "__main__":
+    num_notes = 20
+    tempo = 120
+    melody = generate_melody(num_notes, tempo)
+    filename = "random_melody.mid"
+    save_melody(melody, filename)
+    print(f"Создана случайная мелодия и сохранена в файле '{filename}'")
