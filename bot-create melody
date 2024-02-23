@@ -2,7 +2,7 @@ import random
 import time
 from midiutil import MIDIFile
 
-def generate_melody(num_notes, tempo):
+def generate_melody(num_notes, tempo):  // если не будет правильно генерировать, изменить код
     # Создаем объект MIDIFile
     midi = MIDIFile(1)
 
